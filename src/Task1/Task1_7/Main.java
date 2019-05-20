@@ -17,16 +17,13 @@ public class Main {
             b = a + b;
             a = b - a;
         }
-
         System.out.println("a= " + a);
         System.out.println("b= " + b);
-
     }
 
     //метод инициализирует переменную типа double
     private static double initializing() {
         double count;
-
         while (true) {
             try {
                 count = new Scanner(System.in).nextDouble();

@@ -30,7 +30,6 @@ public class Main {
                 } else{
                     System.out.println("Все три числа отличны друг от друга!");
                 }
-
             }
         }
     }

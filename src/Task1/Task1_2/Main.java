@@ -8,14 +8,12 @@ public class Main {
         double kilo;
 
         System.out.println("Введите массу динозавра в килограммах");
-
         kilo = initializing();
-
         System.out.println("Масса динозавра: ");
-        System.out.println(kiloToMiligramm(kilo) + " миллиграмм");
-        System.out.println(kiloToGramm(kilo) + " грамм");
-        System.out.println(kiloToTonn(kilo) + " тонн");
-
+        System.out.printf("%.2f", kiloToMilligram(kilo));
+        System.out.println(" милиграмм");
+        System.out.println(kiloToGram(kilo) + " грамм");
+        System.out.println(kiloToTon(kilo) + " тонн");
     }
 
     //метод инициализирует переменную больше нуля типа double
@@ -28,7 +26,7 @@ public class Main {
                 if (d > 0) {
                     return d;
                 } else {
-                    throw new Exception();
+                    System.out.println("Ошибка ввода, введите корректное значение");
                 }
             } catch (Exception e) {
                 System.out.println("Ошибка ввода, введите корректное значение");
@@ -36,15 +34,15 @@ public class Main {
         }
     }
 
-    private static double kiloToMiligramm(double kilo) {
+    private static double kiloToMilligram(double kilo) {
         return kilo * 1_000_000;
     }
 
-    private static double kiloToGramm(double kilo) {
+    private static double kiloToGram(double kilo) {
         return kilo * 1_000;
     }
 
-    private static double kiloToTonn(double kilo) {
+    private static double kiloToTon(double kilo) {
         return kilo / 1000;
     }
 
