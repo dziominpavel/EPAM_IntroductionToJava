@@ -7,11 +7,9 @@ public class Main {
     public static void main(String[] args) {
         final int MIN_THROWS_COUNT = 100;
         final int MAX_THROWS_COUNT = 10000;
-        int countThrows;
+        int countThrows = generateCountThrows(MIN_THROWS_COUNT, MAX_THROWS_COUNT);
         int countHeads = 0;
         int countTrails = 0;
-
-        countThrows = generateCountThrows(MIN_THROWS_COUNT, MAX_THROWS_COUNT);
 
         for (int i = 0; i < countThrows; i++) {
             if (isCoinHead()) {
