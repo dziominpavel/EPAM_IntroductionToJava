@@ -1,6 +1,4 @@
-package Task4.bean;
-
-import java.util.Date;
+package Task4.entity.music;
 
 public class ClassicalMusic extends Music {
     private String era;

@@ -1,4 +1,6 @@
-package Task4.bean;
+package Task4.entity.music;
+
+import Task4.entity.MusicType;
 
 public abstract class Music {
     private String name;

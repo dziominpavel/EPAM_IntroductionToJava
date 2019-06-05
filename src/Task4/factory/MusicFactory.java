@@ -1,6 +1,7 @@
 package Task4.factory;
 
-import Task4.bean.*;
+import Task4.entity.*;
+import Task4.entity.music.*;
 
 public class MusicFactory {
     public Music createMusic(MusicType musicType) {

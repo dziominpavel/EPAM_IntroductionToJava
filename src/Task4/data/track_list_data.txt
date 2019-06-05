@@ -1,0 +1,10 @@
+Track_1/120/National/Babkina/Russia/-
+Track_2/110/Classical/Shopen/Progressevizm/1712
+Track_3/100/Modern/Igor Krutoy/Pop/Kirkorov
+Track_4/20/Classical/Glinka/Progressevizm/1812
+Track_5/230/Religious/Christianstvo/Russian/-
+Track_6/140/Religious/Christianstvo/German/-
+Track_7/180/National/Kadusheva/Russia/-
+Track_8/190/Classical/Vivaldi/Vozrozdenie/1850
+Track_9/200/Modern/Igor Krutoy/Pop/Pugacheva
+Track_10/170/Classical/Beethoven/Vozrozdenie/1860

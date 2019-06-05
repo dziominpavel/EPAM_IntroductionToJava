@@ -1,4 +1,6 @@
-package Task4.bean;
+package Task4.entity.music;
+
+import Task4.entity.Style;
 
 public class ModernMusic extends Music {
     private Style style;

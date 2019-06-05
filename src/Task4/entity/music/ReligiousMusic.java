@@ -1,4 +1,4 @@
-package Task4.bean;
+package Task4.entity.music;
 
 public class ReligiousMusic extends Music {
     private String religion;

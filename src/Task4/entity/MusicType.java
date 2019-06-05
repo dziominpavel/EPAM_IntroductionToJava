@@ -1,4 +1,4 @@
-package Task4.bean;
+package Task4.entity;
 
 public enum MusicType {
     Classical, Modern, National, Religious

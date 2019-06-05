@@ -1,74 +1,119 @@
 package Task4;
 
-import Task4.bean.*;
+import Task4.entity.Country;
+import Task4.entity.Disk;
+import Task4.entity.MusicType;
+import Task4.entity.Style;
+import Task4.entity.music.*;
 import Task4.factory.MusicFactory;
+import Task4.reader.DataDiskParser;
+import Task4.reader.DataReader;
+import Task4.reader.DataTackParcer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Random;
+import java.util.List;
+import java.util.Objects;
+
+import static Task4.properties.DiskProperties.MAX_RANGE_SEARCHERS;
+import static Task4.properties.DiskProperties.MIN_RANGE_SEARCHERS;
+
 
 public class Main {
 
 
-    public static void main(String[] args) {
-        ArrayList<Music> trackList = trackListCreator();
-        Disk disk = burnDisk(trackList);
+    public static void main(String[] args) throws Exception {
+        File diskDataFile = new File("src\\Task4\\data\\disk_data.txt");
+        File tracksDataFile = new File("src\\Task4\\data\\track_list_data.txt");
+
+        Disk disk = diskCreator(DataDiskParser.diskInfo(DataReader.dataReader(diskDataFile).get(0)));
+
+
+        List<Music> trackList = new ArrayList<>();
+        int numberRows = DataReader.dataReader(tracksDataFile).size();
+        for (int i = 0; i < numberRows; i++) {
+            Music music = musicCreator(Objects.requireNonNull(DataTackParcer.trackInfo(DataReader.dataReader(tracksDataFile).get(i))));
+            trackList.add(music);
+        }
+
+        disk.setMusicList(trackList);
+
         System.out.println("Записан диск:");
         printDisk(disk);
+        System.out.println("Записано " + numberRows + " треков:");
+        printTrackList(trackList);
         System.out.println("\nДлинна Всех треков равна: " + calcDiskDuration(disk));
-
-        System.out.println("\nОтсортированный по стилю диск:");
-        printDisk(sortTracks(disk));
-
-        printTrack(findSpecifiedTrack(trackList, 10, 20));
+        System.out.println("\nОтсортированный по типу музыки диск:");
+        sortTracks(disk);
+        printTrackList(disk.getMusicList());
+        System.out.println("\nТрек с длиной в промежутке от " + MIN_RANGE_SEARCHERS + " до " + MAX_RANGE_SEARCHERS + ":");
+        printTrack(findSpecifiedTrack(disk.getMusicList(), MIN_RANGE_SEARCHERS, MAX_RANGE_SEARCHERS));
 
     }
 
 
-    private static ArrayList<Music> trackListCreator() {
-        ArrayList<Music> trackList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+    private static Music musicCreator(String[] trackInfo) {
 
-            Music music = new MusicFactory().createMusic(MusicType.values()[new Random()
-                    .nextInt(MusicType.values().length)]);
-            music.setName("Track" + i);
-            music.setDuration(new Random().nextInt(100));
-            if (music instanceof ClassicalMusic) {
-                music.setMusicType(MusicType.Classical);
-                ((ClassicalMusic) music).setComposer("Shopen");
-                ((ClassicalMusic) music).setEra("Progressevizm");
-                ((ClassicalMusic) music).setYear(1712);
-            } else if (music instanceof ModernMusic) {
-                music.setMusicType(MusicType.Modern);
-                ((ModernMusic) music).setComposer("Igor Krutoy");
-                ((ModernMusic) music).setStyle(Style.Pop);
-                ((ModernMusic) music).setSinger("Kirkorov");
+        try {
+            Music music = new MusicFactory().createMusic(MusicType.valueOf(trackInfo[2]));
+            music.setName(trackInfo[0]);
+            music.setDuration(Long.valueOf(trackInfo[1]));
+            music.setMusicType(MusicType.valueOf(trackInfo[2]));
+            if (music instanceof ModernMusic) {
+                ((ModernMusic) music).setComposer(trackInfo[3]);
+                ((ModernMusic) music).setStyle(Style.valueOf(trackInfo[4]));
+                ((ModernMusic) music).setSinger(trackInfo[5]);
+            } else if (music instanceof ClassicalMusic) {
+                ((ClassicalMusic) music).setComposer(trackInfo[3]);
+                ((ClassicalMusic) music).setEra(trackInfo[4]);
+                ((ClassicalMusic) music).setYear(Integer.parseInt(trackInfo[5]));
             } else if (music instanceof NationalMusic) {
-                music.setMusicType(MusicType.National);
-                ((NationalMusic) music).setSinger("Babkina");
-                ((NationalMusic) music).setCountry(Country.Russia);
+                ((NationalMusic) music).setSinger(trackInfo[3]);
+                ((NationalMusic) music).setCountry(Country.valueOf(trackInfo[4]));
             } else if (music instanceof ReligiousMusic) {
-                music.setMusicType(MusicType.Religious);
-                ((ReligiousMusic) music).setReligion("Christianstvo");
-                ((ReligiousMusic) music).setLanguage("Russian");
+                ((ReligiousMusic) music).setReligion(trackInfo[3]);
+                ((ReligiousMusic) music).setLanguage(trackInfo[4]);
             }
-            trackList.add(music);
-        }
-        return trackList;
+            return music;
 
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка создания трека");
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
      * prints all track on disk
      */
     private static void printDisk(Disk disk) {
-        for (Music music : disk.getMusicList()) {
-            System.out.println(music.getName() + " " + music + "duration=" + music.getDuration());
+        System.out.println(disk.getName() + "/" + disk.getDescription() + "/" + disk.getDate());
+    }
+
+
+    private static void printTrackList(List<Music> trackList) {
+        for (Music music : trackList) {
+            System.out.println(music);
+
         }
     }
 
-    private static Disk burnDisk(ArrayList<Music> trackList) {
-        return new Disk("Disk1", "Sborka", "29.05.2019", trackList);
+    /**
+     * method create new Disk with specified tracklist
+     *
+     * @return new disk
+     */
+    private static Disk diskCreator(String[] diskInfo) throws Exception {
+        if (diskInfo == null || diskInfo.length != 3) {
+            throw new Exception("Ошибка создания диска");
+        }
+
+        String name = diskInfo[0];
+        String description = diskInfo[1];
+        String date = diskInfo[2];
+
+        return new Disk(name, description, date);
     }
 
     /**
@@ -85,15 +130,15 @@ public class Main {
     /**
      * methods sorts track on disk by musicType
      */
-    private static Disk sortTracks(Disk disk) {
-        disk.getMusicList().sort(Comparator.comparing(Music::getMusicType));
-        return disk;
+    private static void sortTracks(Disk disk2) {
+        disk2.getMusicList().sort(Comparator.comparing(Music::getMusicType));
     }
 
     /**
      * method find track with specified range of duration
      */
-    private static Music findSpecifiedTrack(ArrayList<Music> trackList, long lowDuration, long highDuration) {
+    private static Music findSpecifiedTrack(List<Music> trackList,
+                                            long lowDuration, long highDuration) {
         for (Music music : trackList) {
             if (music.getDuration() > lowDuration && music.getDuration() < highDuration) {
                 return music;

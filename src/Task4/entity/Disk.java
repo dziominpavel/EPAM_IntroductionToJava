@@ -1,6 +1,7 @@
-package Task4.bean;
+package Task4.entity;
 
-import java.util.Date;
+import Task4.entity.music.Music;
+
 import java.util.List;
 
 public class Disk {
@@ -12,11 +13,10 @@ public class Disk {
     public Disk() {
     }
 
-    public Disk(String name, String description, String date, List<Music> musicList) {
+    public Disk(String name, String description, String date) {
         this.name = name;
         this.description = description;
         this.date = date;
-        this.musicList = musicList;
     }
 
     public String getName() {
