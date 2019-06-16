@@ -1,22 +1,25 @@
 package Task4.factory;
 
-import Task4.entity.*;
+import Task4.entity.enums.MusicType;
 import Task4.entity.music.*;
 
 public class MusicFactory {
-    public Music createMusic(MusicType musicType) {
+    public Music createMusic(MusicType musicType) throws IllegalArgumentException {
         if (musicType == null) {
-            return null;
+            throw new IllegalArgumentException();
         }
-        if (musicType == MusicType.Classical) {
-            return new ClassicalMusic();
-        } else if (musicType == MusicType.Modern) {
-            return new ModernMusic();
-        } else if (musicType == MusicType.National) {
-            return new NationalMusic();
-        } else if (musicType == MusicType.Religious) {
-            return new ReligiousMusic();
+
+        switch (musicType) {
+            case Classical:
+                return new ClassicalMusic();
+            case Modern:
+                return new ModernMusic();
+            case National:
+                return new NationalMusic();
+            case Religious:
+                return new ReligiousMusic();
+            default:
+                throw new IllegalArgumentException();
         }
-        return null;
     }
 }

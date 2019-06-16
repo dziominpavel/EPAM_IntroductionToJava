@@ -1,19 +1,30 @@
 package Task4.reader;
 
 
+import Task4.exceptions.DataParcerExeption;
+
+import static Task4.properties.DiskProperties.SEPARATOR;
+
 public class DataDiskParser {
+
     public static String[] diskInfo(String stringDiskData) {
         try {
             if (stringDiskData != null) {
-                String[] diskInfo = new String[3];
-                diskInfo[0] = stringDiskData.split("/")[0];
-                diskInfo[1] = stringDiskData.split("/")[1];
-                diskInfo[2] = stringDiskData.split("/")[2];
+                String[] diskInfo = stringDiskData.split(SEPARATOR);
+                if (diskInfo.length != 3) {
+                    System.out.println("Не корректное число параметров");
+                    throw new DataParcerExeption("tempMessage");
+                }
                 return diskInfo;
+            } else {
+                System.out.println("Не найдена информация о диске");
+                throw new DataParcerExeption("tempMessage");
             }
-        } catch (Exception e) {
+        } catch (DataParcerExeption e) {
             System.out.println("Ошибка чтения информации о диске из файла");
         }
         return null;
     }
+
+
 }

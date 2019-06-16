@@ -1,5 +1,7 @@
 package Task4.entity.music;
 
+import static Task4.reader.TrackValidator.trackReligionValidator;
+
 public class ReligiousMusic extends Music {
     private String religion;
     private String language;
@@ -10,7 +12,9 @@ public class ReligiousMusic extends Music {
     }
 
     public void setReligion(String religion) {
-        this.religion = religion;
+        if (trackReligionValidator(religion)) {
+            this.religion = religion;
+        }
     }
 
     public String getLanguage() {
@@ -18,7 +22,9 @@ public class ReligiousMusic extends Music {
     }
 
     public void setLanguage(String language) {
-        this.language = language;
+        if (trackReligionValidator(language)) {
+            this.language = language;
+        }
     }
 
     @Override

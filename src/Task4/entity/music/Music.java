@@ -1,13 +1,22 @@
 package Task4.entity.music;
 
-import Task4.entity.MusicType;
+import Task4.entity.enums.MusicType;
+
+import static Task4.entity.enums.MusicType.Modern;
+import static Task4.reader.TrackValidator.*;
 
 public abstract class Music {
-    private String name;
-    private long duration;
-    private MusicType musicType;
+    private String name = "Unknown";
+    private long duration = 0;
+    private MusicType musicType = Modern;
 
     Music() {
+    }
+
+    public Music(String name, long duration, MusicType musicType) {
+        setName(name);
+        setDuration(duration);
+        setMusicType(musicType);
     }
 
     public void playMusic() {
@@ -19,7 +28,9 @@ public abstract class Music {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (trackNameValidator(name)) {
+            this.name = name;
+        }
     }
 
     public long getDuration() {
@@ -27,7 +38,9 @@ public abstract class Music {
     }
 
     public void setDuration(long duration) {
-        this.duration = duration;
+        if (trackDurationValidator(String.valueOf(duration))) {
+            this.duration = duration;
+        }
     }
 
     public MusicType getMusicType() {
@@ -35,6 +48,8 @@ public abstract class Music {
     }
 
     public void setMusicType(MusicType musicType) {
-        this.musicType = musicType;
+        if (trackTypeValidator(String.valueOf(musicType))) {
+            this.musicType = musicType;
+        }
     }
 }

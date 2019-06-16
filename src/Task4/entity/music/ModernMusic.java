@@ -1,18 +1,22 @@
 package Task4.entity.music;
 
-import Task4.entity.Style;
+import Task4.entity.enums.Style;
+
+import static Task4.reader.TrackValidator.*;
 
 public class ModernMusic extends Music {
-    private Style style;
-    private String singer;
-    private String composer;
+    private Style style = Style.Unknown;
+    private String singer = "Unknown";
+    private String composer = "Unknown";
 
     public Style getStyle() {
         return style;
     }
 
     public void setStyle(Style style) {
-        this.style = style;
+        if (trackStyleValidator(String.valueOf(style))) {
+            this.style = style;
+        }
     }
 
     public String getSinger() {
@@ -20,7 +24,9 @@ public class ModernMusic extends Music {
     }
 
     public void setSinger(String singer) {
-        this.singer = singer;
+        if (trackSingerValidator(singer)) {
+            this.singer = singer;
+        }
     }
 
     public String getComposer() {
@@ -28,7 +34,9 @@ public class ModernMusic extends Music {
     }
 
     public void setComposer(String composer) {
-        this.composer = composer;
+        if (trackComposerValidator(composer)) {
+            this.composer = composer;
+        }
     }
 
     @Override

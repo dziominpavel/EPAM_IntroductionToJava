@@ -1,9 +1,11 @@
 package Task4.entity.music;
 
+import static Task4.reader.TrackValidator.*;
+
 public class ClassicalMusic extends Music {
-    private String era;
-    private String composer;
-    private int year;
+    private String era = "Unknown";
+    private String composer = "Unknown";
+    private int year = 1900;
 
     @Override
     public void playMusic() {
@@ -15,7 +17,9 @@ public class ClassicalMusic extends Music {
     }
 
     public void setEra(String era) {
-        this.era = era;
+        if (trackEraValidator(era)) {
+            this.era = era;
+        }
     }
 
     public String getComposer() {
@@ -23,7 +27,9 @@ public class ClassicalMusic extends Music {
     }
 
     public void setComposer(String composer) {
-        this.composer = composer;
+        if (trackComposerValidator(composer)) {
+            this.composer = composer;
+        }
     }
 
     public int getYear() {
@@ -31,7 +37,9 @@ public class ClassicalMusic extends Music {
     }
 
     public void setYear(int year) {
-        this.year = year;
+        if (trackYearValidator(String.valueOf(year))) {
+            this.year = year;
+        }
     }
 
     @Override

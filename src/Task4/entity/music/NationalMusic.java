@@ -1,10 +1,13 @@
 package Task4.entity.music;
 
-import Task4.entity.Country;
+import Task4.entity.enums.Country;
+
+import static Task4.reader.TrackValidator.trackCountryValidator;
+import static Task4.reader.TrackValidator.trackSingerValidator;
 
 public class NationalMusic extends Music {
-    private Country country;
-    private String singer;
+    private Country country = Country.Unknown;
+    private String singer = "Unknown";
 
 
     public Country getCountry() {
@@ -12,7 +15,9 @@ public class NationalMusic extends Music {
     }
 
     public void setCountry(Country country) {
-        this.country = country;
+        if (trackCountryValidator(String.valueOf(country))) {
+            this.country = country;
+        }
     }
 
     public String getSinger() {
@@ -20,7 +25,9 @@ public class NationalMusic extends Music {
     }
 
     public void setSinger(String singer) {
-        this.singer = singer;
+        if (trackSingerValidator(singer)) {
+            this.singer = singer;
+        }
     }
 
     @Override
