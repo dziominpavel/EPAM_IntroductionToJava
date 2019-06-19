@@ -20,14 +20,14 @@ public class DiskActions {
     }
 
     /**
-     * methods sorts track on disk by musicType
+     * method sorts track on disk by musicType
      */
-    public static void sortTracks(Disk disk2) {
-        disk2.getMusicList().sort(Comparator.comparing(Music::getMusicType));
+    public static void sortTracks(Disk disk) {
+        disk.getMusicList().sort(Comparator.comparing(Music::getMusicType).thenComparing(Music::getDuration));
     }
 
     /**
-     * method find track with specified range of duration
+     * method finds track with specified range of duration
      */
     public static Music findSpecifiedTrack(List<Music> trackList,
                                            long lowDuration, long highDuration) {

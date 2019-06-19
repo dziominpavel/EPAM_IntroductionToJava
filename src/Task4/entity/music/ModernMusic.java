@@ -19,7 +19,7 @@ public class ModernMusic extends Music {
         }
     }
 
-    public String getSinger() {
+    private String getSinger() {
         return singer;
     }
 
@@ -29,7 +29,7 @@ public class ModernMusic extends Music {
         }
     }
 
-    public String getComposer() {
+    private String getComposer() {
         return composer;
     }
 
@@ -51,5 +51,25 @@ public class ModernMusic extends Music {
                 ", singer='" + singer + '\'' +
                 ", composer='" + composer + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ModernMusic that = (ModernMusic) o;
+
+        if (getStyle() != that.getStyle()) return false;
+        if (!getSinger().equals(that.getSinger())) return false;
+        return getComposer().equals(that.getComposer());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getStyle().hashCode();
+        result = 31 * result + getSinger().hashCode();
+        result = 31 * result + getComposer().hashCode();
+        return result;
     }
 }

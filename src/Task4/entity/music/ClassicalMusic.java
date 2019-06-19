@@ -12,7 +12,7 @@ public class ClassicalMusic extends Music {
         System.out.println("Playing Classical music...");
     }
 
-    public String getEra() {
+    private String getEra() {
         return era;
     }
 
@@ -22,7 +22,7 @@ public class ClassicalMusic extends Music {
         }
     }
 
-    public String getComposer() {
+    private String getComposer() {
         return composer;
     }
 
@@ -49,5 +49,25 @@ public class ClassicalMusic extends Music {
                 ", composer='" + composer + '\'' +
                 ", year=" + year +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ClassicalMusic that = (ClassicalMusic) o;
+
+        if (getYear() != that.getYear()) return false;
+        if (!getEra().equals(that.getEra())) return false;
+        return getComposer().equals(that.getComposer());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getEra().hashCode();
+        result = 31 * result + getComposer().hashCode();
+        result = 31 * result + getYear();
+        return result;
     }
 }

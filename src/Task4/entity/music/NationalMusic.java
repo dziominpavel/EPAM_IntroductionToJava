@@ -10,7 +10,7 @@ public class NationalMusic extends Music {
     private String singer = "Unknown";
 
 
-    public Country getCountry() {
+    private Country getCountry() {
         return country;
     }
 
@@ -20,7 +20,7 @@ public class NationalMusic extends Music {
         }
     }
 
-    public String getSinger() {
+    private String getSinger() {
         return singer;
     }
 
@@ -41,5 +41,23 @@ public class NationalMusic extends Music {
                 "country=" + country +
                 ", singer='" + singer + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        NationalMusic that = (NationalMusic) o;
+
+        if (getCountry() != that.getCountry()) return false;
+        return getSinger().equals(that.getSinger());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getCountry().hashCode();
+        result = 31 * result + getSinger().hashCode();
+        return result;
     }
 }

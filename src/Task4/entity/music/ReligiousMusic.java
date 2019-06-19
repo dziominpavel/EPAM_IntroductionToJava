@@ -7,7 +7,7 @@ public class ReligiousMusic extends Music {
     private String language;
 
 
-    public String getReligion() {
+    private String getReligion() {
         return religion;
     }
 
@@ -38,5 +38,23 @@ public class ReligiousMusic extends Music {
                 "religion='" + religion + '\'' +
                 ", language='" + language + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ReligiousMusic that = (ReligiousMusic) o;
+
+        if (!getReligion().equals(that.getReligion())) return false;
+        return getLanguage().equals(that.getLanguage());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getReligion().hashCode();
+        result = 31 * result + getLanguage().hashCode();
+        return result;
     }
 }
