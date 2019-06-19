@@ -1,13 +1,14 @@
 package Task4.actions;
 
-import Task4.entity.enums.Country;
 import Task4.entity.Disk;
+import Task4.entity.enums.Country;
 import Task4.entity.enums.MusicType;
 import Task4.entity.enums.Style;
 import Task4.entity.music.*;
 import Task4.factory.MusicFactory;
 
 public class Creator {
+
 
     public static Music musicCreator(String[] trackInfo) {
 
@@ -45,7 +46,7 @@ public class Creator {
      *
      * @return new disk
      */
-    public static Disk diskCreator(String[] diskInfo) throws Exception {
+    public static Disk diskCreator(String[] diskInfo) {
 
         String name = diskInfo[0];
         String description = diskInfo[1];

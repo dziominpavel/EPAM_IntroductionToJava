@@ -5,6 +5,8 @@ import Task4.entity.music.Music;
 import Task4.reader.DataDiskParser;
 import Task4.reader.DataReader;
 import Task4.reader.DataTackParcer;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,7 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-
+        Logger log = LogManager.getLogger(Main.class);
 
         String diskInfo = DataReader.dataReader(diskFilePathName).get(0);
         Disk disk = diskCreator(Objects.requireNonNull(DataDiskParser.diskInfo(diskInfo)));
@@ -34,6 +36,7 @@ public class Main {
 
         disk.setMusicList(trackList);
 
+//        log.warn("Incorrect toy name.");
         System.out.println("Записан диск:");
         printDisk(disk);
         System.out.println("Записано " + numberRows + " треков:");

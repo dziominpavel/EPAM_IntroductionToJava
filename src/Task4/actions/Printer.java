@@ -2,10 +2,14 @@ package Task4.actions;
 
 import Task4.entity.Disk;
 import Task4.entity.music.Music;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class Printer {
+
+    private static Logger log = LogManager.getLogger(Printer.class);
 
     /**
      * prints all track on disk
@@ -29,6 +33,7 @@ public class Printer {
         if (music != null) {
             System.out.println(music.getName() + " " + music + "duration=" + music.getDuration());
         } else {
+            log.warn("Incorrect toy name.");
             System.out.println("Трек не найден");
         }
     }
