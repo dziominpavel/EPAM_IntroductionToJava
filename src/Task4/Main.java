@@ -20,7 +20,6 @@ import static Task4.properties.DiskProperties.*;
 
 public class Main {
 
-
     public static void main(String[] args) throws Exception {
         Logger log = LogManager.getLogger(Main.class);
 
@@ -36,7 +35,6 @@ public class Main {
 
         disk.setMusicList(trackList);
 
-//        log.warn("Incorrect toy name.");
         System.out.println("Записан диск:");
         printDisk(disk);
         System.out.println("Записано " + numberRows + " треков:");
